@@ -11,7 +11,11 @@
         pkgs = nixpkgs.legacyPackages.${system};
       in with pkgs; {
         devShells.default = mkShell {
-          buildInputs = [ minikube ];
+          buildInputs = [ minikube podman qemu coreutils openssh ];
+          KUBECONFIG=".kube";
+          shellHook=''
+            alias docker=podman
+          '';
         };
       }
     );
